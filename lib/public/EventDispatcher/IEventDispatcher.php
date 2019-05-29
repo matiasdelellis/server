@@ -25,8 +25,37 @@ declare(strict_types=1);
 
 namespace OCP\EventDispatcher;
 
+/**
+ * Event dispatcher service of Nextcloud
+ *
+ * @since 17.0.0
+ */
 interface IEventDispatcher {
 
+	/**
+	 * @param string $eventName preferably the fully-qualified class name of the Event sub class
+	 * @param callable $listener the object that is invoked when a matching event is dispatched
+	 * @param int $priority
+	 *
+	 * @since 17.0.0
+	 */
 	public function addListener(string $eventName, callable $listener, int $priority = 0): void;
+
+	/**
+	 * @param string $eventName preferably the fully-qualified class name of the Event sub class to listen for
+	 * @param string $className fully qualified class name (or ::class notation) of a \OCP\EventDispatcher\IEventListener that can be built by the DI container
+	 * @param int $priority
+	 *
+	 * @since 17.0.0
+	 */
+	public function addServiceListener(string $eventName, string $className, int $priority = 0): void;
+
+	/**
+	 * @param string $eventName
+	 * @param Event $event
+	 *
+	 * @since 17.0.0
+	 */
+	public function dispatch(string $eventName, Event $event): void;
 
 }

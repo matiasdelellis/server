@@ -27,6 +27,14 @@ namespace OCP\EventDispatcher;
 
 use Symfony\Component\EventDispatcher\GenericEvent;
 
+/**
+ * Base event class for the event dispatcher service
+ *
+ * Typically this class isn't instantiated directly but sub classed for specific
+ * event types
+ *
+ * @since 17.0.0
+ */
 class Event extends GenericEvent {
 
 }
