@@ -38,7 +38,6 @@ use OCP\Files\Mount\IMountPoint;
 use OCP\Files\Node;
 use OCP\ILogger;
 use OCP\IUserManager;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Storage extends Wrapper {

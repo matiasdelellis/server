@@ -36,7 +36,6 @@ use OCA\DAV\HookManager;
 use OCP\IL10N;
 use OCP\IUser;
 use OCP\IUserManager;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Test\TestCase;
 
