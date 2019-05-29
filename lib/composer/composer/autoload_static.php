@@ -202,7 +202,6 @@ class ComposerStaticInit53792487c5a8370acc0b06b1a864ff4c
         'OCP\\EventDispatcher\\Event' => __DIR__ . '/../../..' . '/lib/public/EventDispatcher/Event.php',
         'OCP\\EventDispatcher\\IEventDispatcher' => __DIR__ . '/../../..' . '/lib/public/EventDispatcher/IEventDispatcher.php',
         'OCP\\EventDispatcher\\IEventListener' => __DIR__ . '/../../..' . '/lib/public/EventDispatcher/IEventListener.php',
-        'OCP\\EventDispatcher\\LazyEventListener' => __DIR__ . '/../../..' . '/lib/public/EventDispatcher/LazyEventListener.php',
         'OCP\\Federation\\Exceptions\\ActionNotSupportedException' => __DIR__ . '/../../..' . '/lib/public/Federation/Exceptions/ActionNotSupportedException.php',
         'OCP\\Federation\\Exceptions\\AuthenticationFailedException' => __DIR__ . '/../../..' . '/lib/public/Federation/Exceptions/AuthenticationFailedException.php',
         'OCP\\Federation\\Exceptions\\BadRequestException' => __DIR__ . '/../../..' . '/lib/public/Federation/Exceptions/BadRequestException.php',
