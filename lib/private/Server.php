@@ -989,8 +989,8 @@ class Server extends ServerContainer implements IServerContainer {
 			);
 		});
 		$this->registerAlias(\OCP\EventDispatcher\IEventDispatcher::class, \OC\EventDispatcher\EventDispatcher::class);
-		$this->registerAlias('EventDispatcher', EventDispatcher::class);
-		$this->registerAlias(EventDispatcherInterface::class, EventDispatcher::class);
+		$this->registerAlias('EventDispatcher', \OC\EventDispatcher\SymfonyAdapter::class);
+		$this->registerAlias(EventDispatcherInterface::class, \OC\EventDispatcher\SymfonyAdapter::class);
 
 		$this->registerService('CryptoWrapper', function (Server $c) {
 			// FIXME: Instantiiated here due to cyclic dependency
@@ -1855,7 +1855,7 @@ class Server extends ServerContainer implements IServerContainer {
 	 * @since 8.2.0
 	 */
 	public function getEventDispatcher() {
-		return $this->query('EventDispatcher');
+		return $this->query(\OC\EventDispatcher\SymfonyAdapter::class);
 	}
 
 	/**

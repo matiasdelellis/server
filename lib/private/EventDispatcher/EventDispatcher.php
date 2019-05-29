@@ -75,4 +75,11 @@ class EventDispatcher implements IEventDispatcher {
 		$this->dispatcher->dispatch($eventName, $event);
 	}
 
+	/**
+	 * @return SymfonyDispatcher
+	 */
+	public function getSymfonyDispatcher(): SymfonyDispatcher {
+		return $this->dispatcher;
+	}
+
 }
