@@ -27,9 +27,9 @@ namespace OC\EventDispatcher;
 
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventDispatcher;
-use OCP\EventDispatcher\ServiceEventListener;
 use OCP\IContainer;
 use OCP\ILogger;
+use OCP\IServerContainer;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyDispatcher;
 
 class EventDispatcher implements IEventDispatcher {
@@ -44,7 +44,7 @@ class EventDispatcher implements IEventDispatcher {
 	private $logger;
 
 	public function __construct(SymfonyDispatcher $dispatcher,
-								IContainer $container,
+								IServerContainer $container,
 								ILogger $logger) {
 		$this->dispatcher = $dispatcher;
 		$this->container = $container;

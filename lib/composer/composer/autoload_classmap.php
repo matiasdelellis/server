@@ -815,6 +815,7 @@ return array(
     'OC\\Encryption\\Update' => $baseDir . '/lib/private/Encryption/Update.php',
     'OC\\Encryption\\Util' => $baseDir . '/lib/private/Encryption/Util.php',
     'OC\\EventDispatcher\\EventDispatcher' => $baseDir . '/lib/private/EventDispatcher/EventDispatcher.php',
+    'OC\\EventDispatcher\\ServiceEventListener' => $baseDir . '/lib/private/EventDispatcher/ServiceEventListener.php',
     'OC\\Federation\\CloudFederationFactory' => $baseDir . '/lib/private/Federation/CloudFederationFactory.php',
     'OC\\Federation\\CloudFederationNotification' => $baseDir . '/lib/private/Federation/CloudFederationNotification.php',
     'OC\\Federation\\CloudFederationProviderManager' => $baseDir . '/lib/private/Federation/CloudFederationProviderManager.php',

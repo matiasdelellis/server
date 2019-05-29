@@ -845,6 +845,7 @@ class ComposerStaticInit53792487c5a8370acc0b06b1a864ff4c
         'OC\\Encryption\\Update' => __DIR__ . '/../../..' . '/lib/private/Encryption/Update.php',
         'OC\\Encryption\\Util' => __DIR__ . '/../../..' . '/lib/private/Encryption/Util.php',
         'OC\\EventDispatcher\\EventDispatcher' => __DIR__ . '/../../..' . '/lib/private/EventDispatcher/EventDispatcher.php',
+        'OC\\EventDispatcher\\ServiceEventListener' => __DIR__ . '/../../..' . '/lib/private/EventDispatcher/ServiceEventListener.php',
         'OC\\Federation\\CloudFederationFactory' => __DIR__ . '/../../..' . '/lib/private/Federation/CloudFederationFactory.php',
         'OC\\Federation\\CloudFederationNotification' => __DIR__ . '/../../..' . '/lib/private/Federation/CloudFederationNotification.php',
         'OC\\Federation\\CloudFederationProviderManager' => __DIR__ . '/../../..' . '/lib/private/Federation/CloudFederationProviderManager.php',

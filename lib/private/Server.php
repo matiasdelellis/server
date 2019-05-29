@@ -128,7 +128,6 @@ use OCA\Theming\ThemingDefaults;
 
 use OCP\Accounts\IAccountManager;
 use OCP\App\IAppManager;
-use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Collaboration\AutoComplete\IManager;
 use OCP\Contacts\ContactsMenu\IContactsStore;
 use OCP\Dashboard\IDashboardManager;
@@ -989,9 +988,7 @@ class Server extends ServerContainer implements IServerContainer {
 				$c->getLogger()
 			);
 		});
-		$this->registerService(EventDispatcher::class, function () {
-			return new EventDispatcher();
-		});
+		$this->registerAlias(\OCP\EventDispatcher\IEventDispatcher::class, \OC\EventDispatcher\EventDispatcher::class);
 		$this->registerAlias('EventDispatcher', EventDispatcher::class);
 		$this->registerAlias(EventDispatcherInterface::class, EventDispatcher::class);
 

@@ -43,9 +43,11 @@ declare(strict_types=1);
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCP\EventDispatcher;
+namespace OC\EventDispatcher;
 
 use OCP\AppFramework\QueryException;
+use OCP\EventDispatcher\Event;
+use OCP\EventDispatcher\IEventListener;
 use OCP\IContainer;
 use OCP\ILogger;
 
