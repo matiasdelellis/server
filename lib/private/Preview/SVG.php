@@ -25,8 +25,9 @@
 namespace OC\Preview;
 
 use OCP\ILogger;
+use OCP\Files\File;
 
-class SVG extends Provider {
+class SVG extends ProviderV2 {
 	/**
 	 * {@inheritDoc}
 	 */
@@ -37,12 +38,12 @@ class SVG extends Provider {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getThumbnail($path, $maxX, $maxY, $scalingup, $fileview) {
+	public function getThumbnail(File $file, int $maxX, int $maxY) {
 		try {
 			$svg = new \Imagick();
 			$svg->setBackgroundColor(new \ImagickPixel('transparent'));
 
-			$content = stream_get_contents($fileview->fopen($path, 'r'));
+			$content = stream_get_contents($file->fopen('r'));
 			if (substr($content, 0, 5) !== '<?xml') {
 				$content = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' . $content;
 			}

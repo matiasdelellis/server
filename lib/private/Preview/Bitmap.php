@@ -27,37 +27,35 @@ namespace OC\Preview;
 
 use Imagick;
 use OCP\ILogger;
+use OCP\Files\File;
 
 /**
  * Creates a PNG preview using ImageMagick via the PECL extension
  *
  * @package OC\Preview
  */
-abstract class Bitmap extends Provider {
+abstract class Bitmap extends ProviderV2 {
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getThumbnail($path, $maxX, $maxY, $scalingup, $fileview) {
+	public function getThumbnail(File $file, int $maxX, int $maxY) {
 
-		$tmpPath = $fileview->toTmpFile($path);
-		if (!$tmpPath) {
-			return false;
-		}
+		$tmpPath = $this->getLocalFile($file);
 
 		// Creates \Imagick object from bitmap or vector file
 		try {
 			$bp = $this->getResizedPreview($tmpPath, $maxX, $maxY);
 		} catch (\Exception $e) {
 			\OC::$server->getLogger()->logException($e, [
-				'message' => 'File: ' . $fileview->getAbsolutePath($path) . ' Imagick says:',
+				'message' => 'File: ' . $file->getPath() . ' Imagick says:',
 				'level' => ILogger::ERROR,
 				'app' => 'core',
 			]);
 			return false;
 		}
 
-		unlink($tmpPath);
+		$this->cleanTmpFiles();
 
 		//new bitmap image object
 		$image = new \OC_Image();

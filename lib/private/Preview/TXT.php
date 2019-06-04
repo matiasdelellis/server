@@ -26,7 +26,10 @@
  */
 namespace OC\Preview;
 
-class TXT extends Provider {
+use OCP\Files\File;
+use OCP\Files\FileInfo;
+
+class TXT extends ProviderV2 {
 	/**
 	 * {@inheritDoc}
 	 */
@@ -37,15 +40,15 @@ class TXT extends Provider {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function isAvailable(\OCP\Files\FileInfo $file) {
+	public function isAvailable(FileInfo $file) {
 		return $file->getSize() > 0;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getThumbnail($path, $maxX, $maxY, $scalingup, $fileview) {
-		$content = $fileview->fopen($path, 'r');
+	public function getThumbnail(File $file, int $maxX, int $maxY) {
+		$content = $file->fopen('r');
 
 		if ($content === false) {
 			return false;

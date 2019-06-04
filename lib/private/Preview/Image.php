@@ -27,20 +27,16 @@
  */
 namespace OC\Preview;
 
-abstract class Image extends Provider {
+use OCP\Files\File;
+
+abstract class Image extends ProviderV2 {
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getThumbnail($path, $maxX, $maxY, $scalingup, $fileview) {
-		//get fileinfo
-		$fileInfo = $fileview->getFileInfo($path);
-		if (!$fileInfo) {
-			return false;
-		}
-
+	public function getThumbnail(File $file, int $maxX, int $maxY) {
 		$maxSizeForImages = \OC::$server->getConfig()->getSystemValue('preview_max_filesize_image', 50);
-		$size = $fileInfo->getSize();
+		$size = $file->getSize();
 
 		if ($maxSizeForImages !== -1 && $size > ($maxSizeForImages * 1024 * 1024)) {
 			return false;
@@ -48,17 +44,13 @@ abstract class Image extends Provider {
 
 		$image = new \OC_Image();
 
-		$useTempFile = $fileInfo->isEncrypted() || !$fileInfo->getStorage()->isLocal();
-		if ($useTempFile) {
-			$fileName = $fileview->toTmpFile($path);
-		} else {
-			$fileName = $fileview->getLocalFile($path);
-		}
+		$fileName = $this->getLocalFile($file);
+
 		$image->loadFromFile($fileName);
 		$image->fixOrientation();
-		if ($useTempFile) {
-			unlink($fileName);
-		}
+
+		$this->cleanTmpFiles();
+
 		if ($image->valid()) {
 			$image->scaleDownToFit($maxX, $maxY);
 

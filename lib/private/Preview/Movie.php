@@ -25,7 +25,9 @@
  */
 namespace OC\Preview;
 
-class Movie extends Provider {
+use OCP\Files\File;
+
+class Movie extends ProviderV2 {
 	public static $avconvBinary;
 	public static $ffmpegBinary;
 
@@ -39,24 +41,10 @@ class Movie extends Provider {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getThumbnail($path, $maxX, $maxY, $scalingup, $fileview) {
+	public function getThumbnail(File $file, int $maxX, int $maxY) {
 		// TODO: use proc_open() and stream the source file ?
 
-		$fileInfo = $fileview->getFileInfo($path);
-		$useFileDirectly = (!$fileInfo->isEncrypted() && !$fileInfo->isMounted());
-
-		if ($useFileDirectly) {
-			$absPath = $fileview->getLocalFile($path);
-		} else {
-			$absPath = \OC::$server->getTempManager()->getTemporaryFile();
-
-			$handle = $fileview->fopen($path, 'rb');
-
-			// we better use 5MB (1024 * 1024 * 5 = 5242880) instead of 1MB.
-			// in some cases 1MB was no enough to generate thumbnail
-			$firstmb = stream_get_contents($handle, 5242880);
-			file_put_contents($absPath, $firstmb);
-		}
+		$absPath = $this->getLocalFile($file, 5242880); // only use the first 5MB
 
 		$result = $this->generateThumbNail($maxX, $maxY, $absPath, 5);
 		if ($result === false) {
@@ -66,9 +54,7 @@ class Movie extends Provider {
 			}
 		}
 
-		if (!$useFileDirectly) {
-			unlink($absPath);
-		}
+		$this->cleanTmpFiles();
 
 		return $result;
 	}

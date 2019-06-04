@@ -26,20 +26,21 @@
 namespace OC\Preview;
 
 use OCP\ILogger;
+use OCP\Files\File;
 
-abstract class Office extends Provider {
+abstract class Office extends ProviderV2 {
 	private $cmd;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function getThumbnail($path, $maxX, $maxY, $scalingup, $fileview) {
+	public function getThumbnail(File $file, int $maxX, int $maxY) {
 		$this->initCmd();
 		if (is_null($this->cmd)) {
 			return false;
 		}
 
-		$absPath = $fileview->toTmpFile($path);
+		$absPath = $this->getLocalFile($file);
 
 		$tmpDir = \OC::$server->getTempManager()->getTempBaseDir();
 
@@ -59,7 +60,7 @@ abstract class Office extends Provider {
 			$png = new \imagick($pngPreview . '[0]');
 			$png->setImageFormat('jpg');
 		} catch (\Exception $e) {
-			unlink($absPath);
+			$this->cleanTmpFiles();
 			unlink($pngPreview);
 			\OC::$server->getLogger()->logException($e, [
 				'level' => ILogger::ERROR,
@@ -71,7 +72,7 @@ abstract class Office extends Provider {
 		$image = new \OC_Image();
 		$image->loadFromData($png);
 
-		unlink($absPath);
+		$this->cleanTmpFiles();
 		unlink($pngPreview);
 
 		if ($image->valid()) {
