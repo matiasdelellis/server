@@ -34,6 +34,8 @@ namespace OC\Entities\Model;
 use daita\NcSmallPhpTools\Model\Options;
 use daita\NcSmallPhpTools\Traits\TArrayTools;
 use daita\NcSmallPhpTools\Traits\TStringTools;
+use DateTime;
+use Exception;
 use JsonSerializable;
 use OC;
 use OCP\Entities\Model\IEntityAccount;
@@ -160,6 +162,20 @@ class EntityAccount implements IEntityAccount, JsonSerializable {
 		return $this;
 	}
 
+	/**
+	 * @param string $in
+	 *
+	 * @return IEntityAccount
+	 * @throws Exception
+	 */
+	public function setDeleteIn(string $in): IEntityAccount {
+		$dTime = new DateTime($in);
+
+		$this->setDeleteOn($dTime->getTimestamp());
+
+		return $this;
+	}
+
 
 	/**
 	 * @return int
@@ -195,7 +211,12 @@ class EntityAccount implements IEntityAccount, JsonSerializable {
 		$this->setType($this->get('type', $data, ''));
 		$this->setAccount($this->get('account', $data, ''));
 		$this->setDeleteOn($this->getInt('delete_on', $data, 0));
-		$this->setCreation($this->getInt('creation', $data, 0));
+
+		try {
+			$creation = new DateTime($this->get('creation', $data, ''));
+			$this->setCreation($creation->getTimestamp());
+		} catch (Exception $e) {
+		}
 
 		return $this;
 	}

@@ -234,7 +234,7 @@ class EntitiesHelper implements IEntitiesHelper {
 		$account = new EntityAccount();
 		$account->setType($type);
 		$account->setAccount('temp.' . $this->uuid(14));
-		$account->setTemp(true);
+		$account->setDeleteIn('+1 day');
 		$this->entitiesManager->saveAccount($account);
 		$this->temporaryLocalAccount = $account;
 

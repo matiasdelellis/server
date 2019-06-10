@@ -88,7 +88,7 @@ class EntitiesAccountsRequestBuilder extends CoreRequestBuilder {
 		$qb = $this->getQueryBuilder($comment);
 
 		/** @noinspection PhpMethodParametersCountMismatchInspection */
-		$qb->select('ea.id', 'ea.type', 'ea.account', 'ea.temp', 'ea.creation')
+		$qb->select('ea.id', 'ea.type', 'ea.account', 'ea.delete_on', 'ea.creation')
 		   ->from(self::TABLE_ENTITIES_ACCOUNTS, 'ea');
 
 		$qb->setDefaultSelectAlias('ea');

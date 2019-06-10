@@ -150,9 +150,10 @@ class Version17000Date20190417091242 extends SimpleMigrationStep {
 			]
 		);
 		$table->addColumn(
-			'delete_on', Type::DATETIME,
+			'delete_on', Type::INTEGER,
 			[
-				'notnull' => false
+				'notnull' => true,
+				'length'  => 12
 			]
 		);
 		$table->addColumn(

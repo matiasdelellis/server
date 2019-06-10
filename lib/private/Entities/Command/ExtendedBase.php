@@ -81,7 +81,7 @@ class ExtendedBase extends Base {
 
 		if ($entity->getCreation() > 0) {
 			$this->output(
-				$prefix . '  - Creation: <info>' . $entity->getCreation() . '</info>', true
+				$prefix . '  - Creation: <info>' . date('Y-m-d H:i:s', $entity->getCreation()) . '</info>', true
 			);
 		}
 	}
@@ -152,9 +152,16 @@ class ExtendedBase extends Base {
 		$this->output(
 			$prefix . '  - Admin: ' . ($account->hasAdminRights() ? '<info>yes</info>' : 'no')
 		);
+
 		if ($account->getCreation() > 0) {
 			$this->output(
-				$prefix . '  - Creation: <info>' . $account->getCreation() . '</info>', true
+				$prefix . '  - Creation: <info>' . date('Y-m-d H:i:s', $account->getCreation()) . '</info>', true
+			);
+		}
+
+		if ($account->getDeleteOn() > 0) {
+			$this->output(
+				$prefix . '  - Deadline: <info>' . date('Y-m-d H:i:s', $account->getDeleteOn()) . '</info>', true
 			);
 		}
 	}
@@ -215,7 +222,7 @@ class ExtendedBase extends Base {
 
 		if ($member->getCreation() > 0) {
 			$this->output(
-				$prefix . '  - Creation: <info>' . $member->getCreation() . '</info>', true
+				$prefix . '  - Creation: <info>' . date('Y-m-d H:i:s', $member->getCreation()) . '</info>', true
 			);
 		}
 	}

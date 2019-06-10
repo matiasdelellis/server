@@ -33,6 +33,8 @@ namespace OC\Entities\Model;
 
 use daita\NcSmallPhpTools\Traits\TArrayTools;
 use daita\NcSmallPhpTools\Traits\TStringTools;
+use DateTime;
+use Exception;
 use JsonSerializable;
 use OC;
 use OC\Entities\Exceptions\EntityMemberNotFoundException;
@@ -365,7 +367,12 @@ class Entity implements IEntity, JsonSerializable {
 		$this->setVisibility($this->getInt('visibility', $data, 0));
 		$this->setAccess($this->getInt('access', $data, 0));
 		$this->setName($this->get('name', $data, ''));
-		$this->setCreation($this->getInt('creation', $data, 0));
+
+		try {
+			$creation = new DateTime($this->get('creation', $data, ''));
+			$this->setCreation($creation->getTimestamp());
+		} catch (Exception $e) {
+		}
 
 		return $this;
 	}
@@ -404,11 +411,9 @@ class Entity implements IEntity, JsonSerializable {
 	}
 
 
-
-
 	public function pointOfView(): IEntityMember {
-			return OC::$server->getEntitiesManager()
-							  ->entityPointOfView($this);
+		return OC::$server->getEntitiesManager()
+						  ->entityPointOfView($this);
 	}
 
 

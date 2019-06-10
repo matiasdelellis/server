@@ -47,6 +47,11 @@ use stdClass;
 class EntitiesAccountsRequest extends EntitiesAccountsRequestBuilder {
 
 
+	/**
+	 * @param IEntityAccount $account
+	 *
+	 * @throws Exception
+	 */
 	public function create(IEntityAccount $account) {
 		$now = new DateTime('now');
 
@@ -57,7 +62,7 @@ class EntitiesAccountsRequest extends EntitiesAccountsRequestBuilder {
 		$qb->setValue('id', $qb->createNamedParameter($account->getId()))
 		   ->setValue('type', $qb->createNamedParameter($account->getType()))
 		   ->setValue('account', $qb->createNamedParameter($account->getAccount()))
-		   ->setValue('delete_on', $qb->createNamedParameter(($account->isTemp()) ? '1' : '0'))
+		   ->setValue('delete_on', $qb->createNamedParameter($account->getDeleteOn()))
 		   ->setValue('creation', $qb->createNamedParameter($now, IQueryBuilder::PARAM_DATE));
 
 		$qb->execute();

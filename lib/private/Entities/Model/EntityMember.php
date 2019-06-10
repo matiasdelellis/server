@@ -33,6 +33,8 @@ namespace OC\Entities\Model;
 
 use daita\NcSmallPhpTools\Traits\TArrayTools;
 use daita\NcSmallPhpTools\Traits\TStringTools;
+use DateTime;
+use Exception;
 use JsonSerializable;
 use OC\Entities\Exceptions\EntityAccountNotFoundException;
 use OC\Entities\Exceptions\EntityNotFoundException;
@@ -314,7 +316,12 @@ class EntityMember implements IEntityMember, JsonSerializable {
 		$this->setSlaveEntityId($this->get('slave_entity_id', $data, ''));
 		$this->setStatus($this->get('status', $data, ''));
 		$this->setLevel($this->getInt('level', $data, 0));
-		$this->setCreation($this->getInt('creation', $data, 0));
+
+		try {
+			$creation = new DateTime($this->get('creation', $data, ''));
+			$this->setCreation($creation->getTimestamp());
+		} catch (Exception $e) {
+		}
 
 		return $this;
 	}
