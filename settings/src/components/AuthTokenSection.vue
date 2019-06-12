@@ -52,7 +52,7 @@
 		props: {
 			tokens: {
 				type: Array,
-				requried: true,
+				required: true,
 			},
 		},
 		components: {
